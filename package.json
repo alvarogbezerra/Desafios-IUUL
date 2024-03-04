@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/alvarogbezerra/Desafios-IUUL/issues"
   },
-  "homepage": "https://github.com/alvarogbezerra/Desafios-IUUL#readme"
+  "homepage": "https://github.com/alvarogbezerra/Desafios-IUUL#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
 }

@@ -1,0 +1,6 @@
+## Instalação
+
+Para instalar as dependências do projeto, execute o seguinte comando no terminal:
+
+```bash
+npm install prompt-sync

@@ -6,14 +6,9 @@ Crie métodos para:
 ● Lançar a nota (seja ela P1 ou P2) de um aluno.
 
 ● Imprimir os alunos da turma em ordem alfabética de acordo com o layout a seguir. A nota final é calculada como: (a) NF = (P1 + P2) / 2, para quem compareceu às duas provas; (b) NF = P1 
-/ 2 ou NF = P2 / 2, para quem faltou a uma das provas, e; (c) NF = 0, para quem faltou às duas provas. Use uma casa decimal para as notas. —---------------------------------------
-Matricula Nome P1 P2 NF
-—---------------------------------------
- 12345 Ana de Almeida 8.0 9.5 8.8
- 23456 Bruno Carvalho 7.0 - 3.5
- 34567 Fernanda Abreu - 8.5 4.3
- 45678 Joao Santos - - 0.0
-—--------------------------------------- Em seguida, leia dados dos alunos e suas notas e imprima a lista de alunos.
+/ 2 ou NF = P2 / 2, para quem faltou a uma das provas, e; (c) NF = 0, para quem faltou às duas provas. Use uma casa decimal para as notas. 
+
+Em seguida, leia dados dos alunos e suas notas e imprima a lista de alunos.
 */
 
 class Turma {
@@ -23,8 +18,8 @@ class Turma {
         return this.#listaDeAlunos;
     }
 
-    inserirAluno(aluno) {
-        this.#listaDeAlunos.push(aluno);
+    inserirAluno(...alunos) {
+        this.#listaDeAlunos.push(...alunos);
     }
 
     removerAluno(matricula) {
@@ -39,32 +34,59 @@ class Turma {
         }
     }
 
-    //o usuário define quem ele quiser chamar, podendo alterar os dois ou só um
-    lancarNota(matricula, novaNotaP1, novaNotaP2) {
-        const alunoParaAlterar = this.#listaDeAlunos.find(objeto => objeto.matricula === matricula);
-    
+    //o usuário define a matricula de quem ele quer mudar a nota, podendo alterar as duas notas ou só uma
+    lancarNota(matricula, notaP1, notaP2) {
+        const alunoParaAlterar = this.#listaDeAlunos.find(aluno => aluno.matricula === matricula);
+        
         if (alunoParaAlterar) {
-            alunoParaAlterar.notaP1 = novaNotaP1;
-            alunoParaAlterar.notaP2 = novaNotaP2;
+            alunoParaAlterar.notaP1 = notaP1;
+            alunoParaAlterar.notaP2 = notaP2;
         } else {
             console.log(`Aluno com matrícula ${matricula} não encontrado.`);
         }
     }
+    
+    
+        
+
+    imprimirListaDeAlunos() {
+        const listaOrdenada = this.#listaDeAlunos.sort((x, y) => {
+            let a = x.nome.toUpperCase(),
+                b = y.nome.toUpperCase();
+            return a === b ? 0 : a > b ? 1 : -1;
+        });
+    
+        console.log(`
+            —---------------------------------------
+            Matrícula  Nome         P1     P2     NF
+            —---------------------------------------
+        `);
+    
+        for (const aluno of listaOrdenada) {
+            console.log(`        ${aluno.matricula}         ${aluno.nome}        ${aluno.P1}      ${aluno.P2}      ${aluno.calcularNotaFinal()}`);
+        }
+    
+        console.log(`
+            —---------------------------------------
+        `);
+    }
+    
+
+
+
 }
 
 class Aluno {
     static autoincrement = 0;//o primeiro aluno registrado começará com 1
     #matricula; 
     #nome;
-    #P1;
-    #P2;
+    #P1 = 0;
+    #P2 = 0;
 
     constructor(nome) {
         Aluno.autoincrement++;
         this.#matricula = Aluno.autoincrement; 
         this.#nome = nome;
-        this.#P1 = 0;
-        this.#P2 = 0;
     }
 
     get matricula (){
@@ -74,13 +96,63 @@ class Aluno {
     get nome () {
         return this.#nome;
     }
+
+    get nota() {
+        return `As notas foram 1°: ${this.#P1}; 2°: ${this.#P2};`;
+    }    
+
+    calcularNotaFinal() {
+        let NF = 0;
+    
+        if (this.#P1 !== undefined && this.#P2 !== undefined) {
+            NF = (this.#P1 + this.#P2) / 2;
+        } else if (this.#P1 !== undefined) {
+            // Se apenas P1 é definido, divide P1 por 2
+            NF = this.#P1 / 2;
+        } else if (this.#P2 !== undefined) {
+            // Se apenas P2 é definido, divide P2 por 2
+            NF = this.#P2 / 2;
+        } else {
+            NF = 0;
+        }
+    
+        return NF.toFixed(1);
+    }
+    
+    
+
 }
+
 /*
+let aluno1 = new Aluno("Jose");
+let aluno2 = new Aluno("Maria"); 
+let aluno3 = new Aluno("Pedro"); 
+let aluno4 = new Aluno("Gustavo"); 
+let aluno5 = new Aluno("Alvaro");
 
-let aluno = new Aluno("Alvaro"); 
-let turma = new Turma(aluno);
-
-turma.inserirAluno(aluno);
-turma.removerAluno(1);
-
+let turma = new Turma();
+turma.inserirAluno(aluno1, aluno2, aluno3, aluno4, aluno5);
 */
+
+//teste para imprimir lista de alunos
+//turma.imprimirListaDeAlunos();
+
+//Teste para definir notas
+/* turma.inserirAluno(aluno);
+turma.lancarNota(1, 10, 10);
+
+console.log(aluno.nota)*/
+
+
+let aluno1 = new Aluno("Pedro");
+let aluno2 = new Aluno("Maria");
+let aluno3 = new Aluno("JOSE");
+
+let turma = new Turma();
+turma.inserirAluno(aluno1, aluno2, aluno3);
+
+turma.lancarNota(aluno1.matricula, 8, 9);
+turma.lancarNota(aluno2.matricula, 7, 8);
+turma.lancarNota(aluno3.matricula, 6, 7);
+
+turma.imprimirListaDeAlunos();
