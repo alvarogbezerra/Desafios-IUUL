@@ -16,23 +16,17 @@ export class Vertice {
     }
 
     distancia(outroVertice) {
-        let valorAoQuadrado = Math.pow(outroVertice.x - this.x, 2) + Math.pow(outroVertice.y - this.y, 2);
-        let resultado = Math.sqrt(valorAoQuadrado);
-        return resultado;
+        return Math.sqrt(Math.pow(this.#x - outroVertice.x, 2) + Math.pow(this.#y - outroVertice.y, 2));
     }
 
     move (x, y){
-        this.x = x;
-        this.y = y;
+        this.#x = x;
+        this.#y = y;
     }
 
-    equals (outroVertice){
-        if (this.x === outroVertice.x && this.x === outroVertice.x) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    equals(outroVertice) {
+        return this.#x === outroVertice.x && this.#y === outroVertice.y;
+    }          
 
     toString() {
         return `[Vertice { x: ${this.#x}, y: ${this.#y} }]`;

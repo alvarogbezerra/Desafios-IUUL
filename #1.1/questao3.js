@@ -1,6 +1,6 @@
 import { Vertice } from "./questao1.js";
 
-class Poligono {
+export class Poligono {
     #vertices; // array de arrays que armazenarão as coordenadas. Formato: [ Vertice {}, Vertice {}, Vertice {}, Vertice {} ]
 
     constructor(...vertices) {

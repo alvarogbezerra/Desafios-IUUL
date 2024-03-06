@@ -1,7 +1,7 @@
 import promptSync from 'prompt-sync';
 const prompt = promptSync();
 
-class Cliente {
+export class Cliente {
     #nome;
     #cpf;
     #dataDeNascimento;
@@ -30,7 +30,7 @@ class Cliente {
     }
 }
 
-function obterNome() {
+export function obterNome() {
     let nome;
     let padrao = /^[a-zA-Z]{5,}$/;
 
@@ -48,7 +48,7 @@ function obterNome() {
 }
 
 
-function obterCPF() {
+export function obterCPF() {
     let cpf;
     let padraoRegex = /^\d{11}$/;
 
@@ -63,7 +63,7 @@ function obterCPF() {
     } while (true); 
 }
 
-function obterDataDeNascimento() {
+export function obterDataDeNascimento() {
     let data;
     let padraoRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d{2}|20\d{2})$/;
 
@@ -99,7 +99,7 @@ function obterDataDeNascimento() {
     } while (true);
 }
 
-function obterRendaMensal() {
+export function obterRendaMensal() {
     let rendaMensal;
     let padraoRegex = /^\d+(,\d{2})?$/;
 
@@ -120,7 +120,7 @@ function obterRendaMensal() {
     } while (true);
 }
 
-function obterEstadoCivil () {
+export function obterEstadoCivil () {
     let estadoCivil;
     let padraoRegex = /^[CSVĐcsvđ]$/;
 
@@ -135,7 +135,7 @@ function obterEstadoCivil () {
     } while (true); 
 }
 
-function obterNumeroDeDependentes () {
+export function obterNumeroDeDependentes () {
     let numeroDeDependentes;
     let padraoRegex = /^\d+$/;
 

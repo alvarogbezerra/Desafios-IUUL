@@ -1,7 +1,7 @@
 import { Vertice } from "./questao1.js";
 
-class Triangulo {
-    #a; //renomear os atributos para "verticeX,Y,Z"
+export class Triangulo {
+    #a;
     #b;
     #c;
 
@@ -19,8 +19,6 @@ class Triangulo {
         this.#c = new Vertice(vertice3);
     }
     
-
-
     get a() {
         return this.#a;
     }
@@ -34,13 +32,9 @@ class Triangulo {
     }
 
     equals(outroTriangulo) {
-        if (this.#a.equals(outroTriangulo.a) && this.#b.equals(outroTriangulo.b) && this.#c.equals(outroTriangulo.c)){
-            return "Os triângulos são iguais.";
-        } else {
-            return "Os triangulos não são iguais";
-        }
-        
-    }
+        return this.#a.equals(outroTriangulo.a) && this.#b.equals(outroTriangulo.b) && this.#c.equals(outroTriangulo.c);
+    }    
+    
 
     get perimetro() {
         //repeti o código pois não foi descrito se poderia criar novos atributos
@@ -66,8 +60,13 @@ class Triangulo {
     }
 
     clone() {
-        return new Triangulo(this.#a.x, this.#a.y, this.#b.x, this.#b.y, this.#c.x, this.#c.y);
+        return new Triangulo(
+            new Vertice(this.#a.x, this.#a.y),
+            new Vertice(this.#b.x, this.#b.y),
+            new Vertice(this.#c.x, this.#c.y)
+        );
     }
+    
     
     area (){
         let semiPerimetro = this.perimetro / 2;
