@@ -14,9 +14,9 @@ export class Triangulo {
             throw new Error ('Os vértices não podem ter as mesmas coordenadas.');
         }
     
-        this.#a = new Vertice(vertice1);
-        this.#b = new Vertice(vertice2);
-        this.#c = new Vertice(vertice3);
+        this.#a = vertice1;
+        this.#b = vertice2;
+        this.#c = vertice3;
     }
     
     get a() {
@@ -37,18 +37,20 @@ export class Triangulo {
     
 
     get perimetro() {
-        //repeti o código pois não foi descrito se poderia criar novos atributos
         let ab = this.#a.distancia(this.#b);
         let bc = this.#b.distancia(this.#c);
         let ca = this.#c.distancia(this.#a);
+
         return ab + bc + ca;
     }
 
     tipo (){
-        //repeti o código pois não foi descrito se poderia criar novos atributos
         let ab = this.#a.distancia(this.#b);
         let bc = this.#b.distancia(this.#c);
         let ca = this.#c.distancia(this.#a);
+        console.log(ab);
+        console.log(bc);
+        console.log(ca);
 
         if (ab == bc && bc == ca){
             return "Equilátero";

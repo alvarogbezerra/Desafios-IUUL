@@ -3,13 +3,14 @@ import { Triangulo } from "./questao2.js";
 
 //TESTE
 // Criando Triangulos
-const triangulo1 = new Triangulo(new Vertice(0, 0), new Vertice(1, 0), new Vertice(0, 1));
-const triangulo2 = new Triangulo(new Vertice(2, 2), new Vertice(3, 2), new Vertice(2, 3));
-const triangulo3 = new Triangulo(new Vertice(0, 0), new Vertice(1, 0), new Vertice(0, 1));
+const triangulo1 = new Triangulo(new Vertice(0, 0), new Vertice(5, 5), new Vertice(10, 0));
+const triangulo2 = new Triangulo(new Vertice(0, 0), new Vertice(4, 4), new Vertice(8, 0));
+const triangulo3 = new Triangulo(new Vertice(0, 0), new Vertice(1, 0), new Vertice(0, 10));
+const triangulo5 = new Triangulo(new Vertice(0, 0), new Vertice(5, 5), new Vertice(10, 0));
 
 // Testando o método equals
 console.log(triangulo1.equals(triangulo2)); // Os triangulos não são iguais
-console.log(triangulo1.equals(triangulo3)); // Os triângulos são iguais. Há um erro que eu não consegui resolver aqui pois o resultado deveria ser true
+console.log(triangulo1.equals(triangulo5)); // Os triângulos são iguais.
 
 // Testando o método perimetro
 console.log(`Perímetro do triangulo1: ${triangulo1.perimetro}`);
@@ -17,9 +18,8 @@ console.log(`Perímetro do triangulo2: ${triangulo2.perimetro}`);
 console.log(`Perímetro do triangulo3: ${triangulo3.perimetro}`);
 
 // Testando o método tipo
-console.log(`Tipo do triangulo1: ${triangulo1.tipo()}`); // Equilátero
 console.log(`Tipo do triangulo2: ${triangulo2.tipo()}`); // Isóceles
-console.log(`Tipo do triangulo3: ${triangulo3.tipo()}`); // Escaleno
+console.log(`Tipo do triangulo: ${triangulo3.tipo()}`); // Escaleno
 
 // Testando o método clone
 const triangulo4 = triangulo1.clone();
