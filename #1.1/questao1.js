@@ -1,6 +1,6 @@
 export class Vertice {
-    #x //eixo horizontal
-    #y //eixo vertical
+    #x;
+    #y;
 
     constructor(x, y) {
         this.#x = x;
@@ -38,16 +38,3 @@ export class Vertice {
         return `[Vertice { x: ${this.#x}, y: ${this.#y} }]`;
     }
 }
-/*
-const vertice1 = new Vertice(50,50);
-const vertice2 = new Vertice(50,50);
-
-function equals (vertice1, vertice2){
-    if (vertice1.x === vertice2.x && vertice1.x === vertice2.x) {
-        return console.log("Os vértices são iguais.")
-    } else {
-        return console.log("Os vértices não são iguais.")
-    }
-}
-
-console.log(equals(vertice1, vertice2));*/

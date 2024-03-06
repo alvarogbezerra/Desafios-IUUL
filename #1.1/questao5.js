@@ -1,32 +1,62 @@
 import promptSync from 'prompt-sync';
 const prompt = promptSync();
 
-//ao final crio a classe Cliente
+class Cliente {
+    #nome;
+    #cpf;
+    #dataDeNascimento;
+    #rendaMensal;
+    #estadoCivil;
+    #dependentes;
+
+    constructor (nome, cpf, dataDeNascimento, rendaMensal, estadoCivil, dependentes) {
+        this.#nome = nome;
+        this.#cpf = cpf;
+        this.#dataDeNascimento = dataDeNascimento;
+        this.#rendaMensal = rendaMensal;
+        this.#estadoCivil = estadoCivil;
+        this.#dependentes = dependentes;
+    }
+
+    toString() {
+        return `Cliente { 
+            Nome: ${this.#nome}, 
+            CPF: ${this.#cpf}, 
+            Data de Nascimento: ${this.#dataDeNascimento}, 
+            Renda Mensal: ${this.#rendaMensal}, 
+            Estado Civil: ${this.#estadoCivil}, 
+            Dependentes: ${this.#dependentes} 
+        }`;
+    }
+}
 
 function obterNome() {
     let nome;
-    let padraoRegex = /^[^\d]{5,}$/;
+    let padrao = /^[a-zA-Z]{5,}$/;
 
     do {
         nome = prompt('Digite seu nome: ');
 
-        if (nome.match(padraoRegex) || !nome.match(padraoRegex)) {
+        if (nome.match(padrao)) {
             return nome;
         } else {
-            console.log('Por favor, insira um nome no formato válido ');
+            console.log('Por favor, insira um nome no formato válido. Deve ter pelo menos 5 letras.');
         }
-    } while (true); 
+    } while (true);
+
+
 }
 
+
 function obterCPF() {
-    let CPF;
+    let cpf;
     let padraoRegex = /^\d{11}$/;
 
     do {
-        CPF = prompt('Digite seu CPF no seguinte formato: XXXXXXXXXXX (apenas números): ');
+        cpf = prompt('Digite seu CPF no seguinte formato: XXXXXXXXXXX (apenas números): ');
 
-        if (nome.match(padraoRegex) || !nome.match(padraoRegex)) {
-            return parseInt(CPF);
+        if (cpf.match(padraoRegex)) {
+            return parseInt(cpf);
         } else {
             console.log('Por favor, insira um CPF no formato válido. ');
         }
@@ -35,16 +65,17 @@ function obterCPF() {
 
 function obterDataDeNascimento() {
     let data;
-    let padraoRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+    let padraoRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d{2}|20\d{2})$/;
 
     do {
         data = prompt('Digite sua data de nascimento (DD/MM/AAAA): ');
 
+        // Adicionando a verificação de correspondência e ajuste do formato da data
         if (data.match(padraoRegex)) {
             let partesData = data.split('/');
-            let anoNascimento = parseInt(partesData[2], 10);
-            let mesNascimento = parseInt(partesData[1], 10) - 1;
             let diaNascimento = parseInt(partesData[0], 10);
+            let mesNascimento = parseInt(partesData[1], 10) - 1;
+            let anoNascimento = parseInt(partesData[2], 10);
 
             let dataNascimento = new Date(anoNascimento, mesNascimento, diaNascimento);
             let hoje = new Date();
@@ -68,35 +99,25 @@ function obterDataDeNascimento() {
     } while (true);
 }
 
-function obterRendaMensal () {
+function obterRendaMensal() {
     let rendaMensal;
     let padraoRegex = /^\d+(,\d{2})?$/;
 
     do {
         rendaMensal = prompt('Digite a sua Renda Mensal no seguinte formato: XXXXXXX,XX (apenas números e vírgula para separar os valores decimais): ');
-        rendaMensalFormatada = parseFloat(rendaMensal.replace(',', '.'))
 
-        if (rendaMensalFormatada.match(padraoRegex) || rendaMensalFormatada > 0) {
-            return parseInt(rendaMensalFormatada);
+        if (padraoRegex.test(rendaMensal)) {
+            let rendaMensalFormatada = parseFloat(rendaMensal.replace(',', '.'));
+            
+            if (!isNaN(rendaMensalFormatada) && rendaMensalFormatada > 0) {
+                return rendaMensalFormatada;
+            } else {
+                console.log('Por favor, insira um valor válido. ');
+            }
         } else {
             console.log('Por favor, insira um valor no formato válido. ');
         }
-    } while (true); 
-}
-
-function obterEstadoCivil () {
-    let estadoCivil;
-    let padraoRegex = /^[CSVĐcsvđ]$/;
-
-    do {
-        estadoCivil = prompt('Digite o seu estado civil no seguinte formato: C, S, V ou D (maiúsculo ou minúsculo): ');
-
-        if (estadoCivil.match(padraoRegex)) {
-            return estadoCivil;
-        } else {
-            console.log('Por favor, insira um valor no formato válido. ');
-        }
-    } while (true); 
+    } while (true);
 }
 
 function obterEstadoCivil () {
@@ -116,7 +137,7 @@ function obterEstadoCivil () {
 
 function obterNumeroDeDependentes () {
     let numeroDeDependentes;
-    let padraoRegex = /^[CSVĐcsvđ]$/;
+    let padraoRegex = /^\d+$/;
 
     do {
         numeroDeDependentes = prompt('Digite o seu número de dependentes: ');
@@ -129,10 +150,6 @@ function obterNumeroDeDependentes () {
     } while (true); 
 }
 
-obterNome();
-obterCPF();
-obterDataDeNascimento();
-obterRendaMensal();
-obterEstadoCivil();
-obterNumeroDeDependentes();
+const cliente = new Cliente(obterNome(), obterCPF(), obterDataDeNascimento(), obterRendaMensal(), obterEstadoCivil(), obterNumeroDeDependentes());
 
+console.log(cliente.toString());

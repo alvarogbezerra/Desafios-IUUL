@@ -42,17 +42,6 @@ class Poligono {
     }
 
     get qtdVertices() {
-        return this.#vertices.length
+        return this.#vertices.length;
     }
-
-
 }
-
-let poligono = new Poligono([0, 0], [0, 50], [50, 50]);
-//let poligono = new Poligono([0, 0], [0, 50]); //Daria erro
-
-console.log(poligono.addVertice(new Vertice(100, 100)))
-//console.log(poligono.addVertice(new Vertice(0, 0))) //Daria erro
-
-console.log(poligono.perimetro)
-console.log(poligono.qtdVertices)

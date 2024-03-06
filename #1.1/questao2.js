@@ -37,31 +37,31 @@ class Triangulo {
         if (this.#a.equals(outroTriangulo.a) && this.#b.equals(outroTriangulo.b) && this.#c.equals(outroTriangulo.c)){
             return "Os triângulos são iguais.";
         } else {
-            return "Os triangulos não são iguais"
+            return "Os triangulos não são iguais";
         }
         
     }
 
     get perimetro() {
         //repeti o código pois não foi descrito se poderia criar novos atributos
-        let ab = this.#a.distancia(this.#b)
-        let bc = this.#b.distancia(this.#c)
-        let ca = this.#c.distancia(this.#a)
-        return ab + bc + ca
+        let ab = this.#a.distancia(this.#b);
+        let bc = this.#b.distancia(this.#c);
+        let ca = this.#c.distancia(this.#a);
+        return ab + bc + ca;
     }
 
     tipo (){
         //repeti o código pois não foi descrito se poderia criar novos atributos
-        let ab = this.#a.distancia(this.#b)
-        let bc = this.#b.distancia(this.#c)
-        let ca = this.#c.distancia(this.#a)
+        let ab = this.#a.distancia(this.#b);
+        let bc = this.#b.distancia(this.#c);
+        let ca = this.#c.distancia(this.#a);
 
         if (ab == bc && bc == ca){
-            return "Equilátero"
+            return "Equilátero";
         } else if (ab == bc || bc == ca || ca == ab){
-            return "Isóceles"
+            return "Isóceles";
         } else {
-            return "Escaleno"
+            return "Escaleno";
         }
     }
 
@@ -81,14 +81,4 @@ class Triangulo {
         return vertice1.x === vertice2.x && vertice1.y === vertice2.y;
     }
 
-}
-
-
-/*let triangulo = new Triangulo(0,8,0,15,15,20)
-console.log(triangulo.perimetro)*/
-
-/*const trianguloOriginal = new Triangulo(0, 0, 1, 1, 2, 0);
-const trianguloClone = trianguloOriginal.clone();
-console.log(trianguloOriginal.tipo());
-console.log(trianguloClone.tipo());*/     
-
+} 
