@@ -1,12 +1,17 @@
 import { Paciente } from "./Paciente.js";
+import moment from 'moment';
+import fs from 'fs';
+const caminhoDB_pacientes = "#1.2\database\DB_pacientes.json";
+
+//FAZ A VALIDAÇÃO E O TRATAMENTO DE ERROS
 
 export class RegraDeNegocioDoPaciente {
-    static validarCPF(cpf) {
+    static validarFomatacaoCPF(cpf) {
         const padraoRegexQuantidadeDeCaracteres = /^\d{11}$/;
         const padraoRegexNumerosTodosIguais = /^(?!([0-9])\1*$)\d+$/;
 
         if (!cpf.match(padraoRegexQuantidadeDeCaracteres)) {
-            throw new Error("O CPF deve conter apenas números e ter exatamente 11 dígitos.");
+            throw new Error("O CPF deve conter apenas números e ter exatamente 11 caracteres.");
         } else if (!cpf.match(padraoRegexNumerosTodosIguais)) {
             throw new Error("O CPF não pode ter os números todos iguais. ");
         }
@@ -24,17 +29,34 @@ export class RegraDeNegocioDoPaciente {
         return nome;
     }
 
-    static validarDataDeNascimento(dataDeNascimento){
-        
+    static validarDataDeNascimento(dataDeNascimento) {
+        const padraoRegexQuantidadeDeCaracteres = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d{2}|20\d{2})$/;
+
+        if (!dataDeNascimento.match(padraoRegexQuantidadeDeCaracteres)) {
+            throw new Error("A data deve conter exatamente 10 caracteres e estar no formato DD/MM/AAAA.");
+        } 
+
+        const data = moment(dataDeNascimento, 'DD/MM/YYYY', true);
+        if (!data.isValid()) {
+            throw new Error("A data de nascimento fornecida não é válida.");
+        }
+
+        const dataAtual = moment();
+        const idadeMinima = moment().subtract(13, 'years');
+        if (data.diff(idadeMinima, 'days') > 0) {
+            throw new Error("A pessoa deve ter no mínimo 13 anos de idade.");
+        }
+
+        return dataDeNascimento;
+    }
+
+    //fiquei na dúvida se deveria colocar aqui ou em outra classe a parte
+    static verificaSeCPFJaFoiCadastrado(cpf) {
+        const dados = fs.readFileSync(caminhoDB_pacientes, 'utf8');
+        const pacientes = JSON.parse(dados);
+
+        if (pacientes.some(paciente => paciente.cpf === cpf)) {
+            throw new Error("Esse CPF já foi cadastrado.");
+        }
     }
 }
-
-// Exemplo de uso
-
-try {
-    const paciente = new Paciente("01245678910", "aleatorio", "11/11/2000");
-    console.log('Paciente cadastrado com sucesso:', paciente);
-} catch (error) {
-    console.error('Erro ao cadastrar paciente:', error.message);
-}
-

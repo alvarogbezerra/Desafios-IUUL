@@ -1,0 +1,12 @@
+[
+  {
+    "cpf": "01245678910",
+    "nome": "aleatorio",
+    "dataDeNascimento": "28/02/2000"
+  },
+  {
+    "cpf": "01245679910",
+    "nome": "aleatorio",
+    "dataDeNascimento": "28/02/2000"
+  }
+]

@@ -4,3 +4,4 @@ Para instalar as dependências do projeto, execute o seguinte comando no termina
 
 ```bash
 npm install prompt-sync
+npm install moment --save
