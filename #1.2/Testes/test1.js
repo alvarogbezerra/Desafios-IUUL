@@ -4,7 +4,7 @@
 import { Paciente } from "../Paciente.js";
 import { Admin } from "../Admin.js";
 
-const paciente = new Paciente("22557797105", "aleatorio", "28/02/2009");
+const paciente = new Paciente("23557797105", "aleatorio", "28/02/2009");
 const admin = new Admin;
 
 admin.incluirPaciente(paciente);

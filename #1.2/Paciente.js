@@ -10,7 +10,6 @@ export class Paciente {
         RegraDeNegocioDoPaciente.validarFomatacaoCPF(cpf);
         RegraDeNegocioDoPaciente.validarNome(nome);
         RegraDeNegocioDoPaciente.validarDataDeNascimento(dataDeNascimento)
-        //RegraDeNegocioDoPaciente.verificaSeCPFJaFoiCadastrado(cpf);
 
         this.#cpf = cpf;
         this.#nome = nome;

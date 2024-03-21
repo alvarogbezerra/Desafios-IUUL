@@ -6,4 +6,4 @@ import { Admin } from "../Admin.js";
 
 const admin = new Admin;
 
-admin.excluirPaciente("22557797105"); //colocar um cpf que tenha no DB_pacientes.json
+admin.excluirPaciente("23557797105"); //colocar um cpf que tenha no DB_pacientes.json

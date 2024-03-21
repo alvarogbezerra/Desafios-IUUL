@@ -1,5 +1,6 @@
 //Pensei em admin como classe, pois posso ter um guichê com vários atendentes
 import fs from 'fs';
+import { RegraDeNegocioDoAdmin } from './RegraDeNegocioDoAdmin.js';
 import { RegraDeNegocioDoAgendamento } from "./RegraDeNegocioDoAgendamento.js";
 
 const caminhoDB_pacientes = "./DB_pacientes.json";
@@ -10,6 +11,7 @@ export class Admin {
 
     incluirPaciente(paciente) {
         try {
+            RegraDeNegocioDoAdmin.verificaSeCPFFoiCadastrado(paciente.cpf)
             const dadosPacientes = Admin.lerDadosJSON(caminhoDB_pacientes);
             dadosPacientes.push(paciente);
             Admin.atualizarDadosJSON(caminhoDB_pacientes, dadosPacientes);
@@ -23,13 +25,17 @@ export class Admin {
         try {
             let dadosPacientes = Admin.lerDadosJSON(caminhoDB_pacientes);
 
-            const pacienteIndex = dadosPacientes.findIndex(paciente => paciente.cpf === cpf);
-            if (pacienteIndex === -1) {
-                throw new Error("Paciente com o CPF especificado não encontrado.");
+            let pacienteIndex = -1;
+            for (let i = 0; i < dadosPacientes.length; i++) {
+                if (dadosPacientes[i].cpf === cpf) {
+                    pacienteIndex = i;
+                    break;
+                }
             }
 
-            const paciente = dadosPacientes[pacienteIndex];
+            RegraDeNegocioDoAdmin.verificaSeCPFnaoFoiCadastrado(cpf);
 
+            const paciente = dadosPacientes[pacienteIndex];
             const consultasFuturas = paciente.agendamentos?.some(agendamento => new Date(agendamento.dataDaConsulta) > new Date());
 
             if (consultasFuturas) {
@@ -45,9 +51,8 @@ export class Admin {
         } catch (error) {
             console.error('Erro ao excluir paciente:', error);
         }
-    }
+    } 
 
-    //há uma série de verificações que ficaram faltando
     realizarAgendamento(agendamento, cpf) {
         try {
             if (RegraDeNegocioDoAgendamento.verificarSobreposicaoDeAgendamentos(agendamento.dataDaConsulta, agendamento.horarioInicial, agendamento.horarioFinal)) {
@@ -73,7 +78,6 @@ export class Admin {
 
             pacienteEncontrado.agendamentos.push(agendamento.toJson());
 
-            // Adicionar os dados do agendamento ao arquivo caminhoDB_agendamentos
             const agendamentos = Admin.lerDadosJSON(caminhoDB_agendamentos);
             agendamentos.push(agendamento.toJson());
             Admin.atualizarDadosJSON(caminhoDB_agendamentos, agendamentos);

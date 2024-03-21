@@ -1,7 +1,7 @@
-import { Paciente } from "./Paciente.js";
+
 import moment from 'moment';
 import fs from 'fs';
-const caminhoDB_pacientes = "./DB_pacientes.json";
+
 
 //FAZ A VALIDAÇÃO E O TRATAMENTO DE ERROS
 
@@ -50,12 +50,4 @@ export class RegraDeNegocioDoPaciente {
         return dataDeNascimento;
     }
 
-    static verificaSeCPFJaFoiCadastrado(cpf) {
-        const dados = fs.readFileSync(caminhoDB_pacientes, 'utf8');
-        const pacientes = JSON.parse(dados);
-
-        if (pacientes.some(paciente => paciente.cpf === cpf)) {
-            throw new Error("Esse CPF já foi cadastrado.");
-        }
-    }
 }
