@@ -1,5 +1,5 @@
-import { Vertice } from "./questao1.js";
-import { Poligono } from "./questao3.js";
+import { Vertice } from "../questao1.js";
+import { Poligono } from "../questao3.js";
 
 // Criando instâncias da classe Vertice
 const vertice1 = new Vertice(0, 0);

@@ -1,7 +1,7 @@
 import { Paciente } from "./Paciente.js";
 import moment from 'moment';
 import fs from 'fs';
-const caminhoDB_pacientes = "#1.2\database\DB_pacientes.json";
+const caminhoDB_pacientes = "./DB_pacientes.json";
 
 //FAZ A VALIDAÇÃO E O TRATAMENTO DE ERROS
 
@@ -50,7 +50,6 @@ export class RegraDeNegocioDoPaciente {
         return dataDeNascimento;
     }
 
-    //fiquei na dúvida se deveria colocar aqui ou em outra classe a parte
     static verificaSeCPFJaFoiCadastrado(cpf) {
         const dados = fs.readFileSync(caminhoDB_pacientes, 'utf8');
         const pacientes = JSON.parse(dados);

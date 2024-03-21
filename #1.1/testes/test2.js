@@ -1,5 +1,5 @@
-import { Vertice } from "./questao1.js";
-import { Triangulo } from "./questao2.js";
+import { Vertice } from "../questao1.js";
+import { Triangulo } from "../questao2.js";
 
 //TESTE
 // Criando Triangulos

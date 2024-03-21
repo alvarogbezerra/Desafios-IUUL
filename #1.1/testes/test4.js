@@ -1,4 +1,4 @@
-import { Turma, Aluno } from "./questao4.js";
+import { Turma, Aluno } from "../questao4.js";
 
 // Criando instâncias da classe Aluno
 const aluno1 = new Aluno("João");

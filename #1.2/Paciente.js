@@ -1,17 +1,16 @@
 import { RegraDeNegocioDoPaciente } from './RegraDeNegocioDoPaciente.js';
 
 export class Paciente {
-    #cpf; //formato 11122233344 (11 digitos)
+    #cpf; 
     #nome;
-    #dataDeNascimento; //formato DD/MM/AAAA
+    #dataDeNascimento; 
     #agendamentos;
 
     constructor (cpf, nome, dataDeNascimento) {
         RegraDeNegocioDoPaciente.validarFomatacaoCPF(cpf);
         RegraDeNegocioDoPaciente.validarNome(nome);
         RegraDeNegocioDoPaciente.validarDataDeNascimento(dataDeNascimento)
-        RegraDeNegocioDoPaciente.verificaSeCPFJaFoiCadastrado(cpf);
-
+        //RegraDeNegocioDoPaciente.verificaSeCPFJaFoiCadastrado(cpf);
 
         this.#cpf = cpf;
         this.#nome = nome;
@@ -31,12 +30,15 @@ export class Paciente {
         return this.#dataDeNascimento;
     }
 
+    get agendamentos() {
+        return this.#agendamentos;
+    }
+
     toJSON() {
         return {
             cpf: this.#cpf,
             nome: this.#nome,
             dataDeNascimento: this.#dataDeNascimento,
-            agendamentos: this.#agendamentos
         };
     }
 }

@@ -1,4 +1,4 @@
-import { Vertice } from "./questao1.js";
+import { Vertice } from "../questao1.js";
 
 //TESTE
 // Criando alguns objetos Vertice
