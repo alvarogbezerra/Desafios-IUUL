@@ -1,0 +1,7 @@
+Tirar os validadores do cliente e colocar na classe validador;
+colocar mais verificações de erros na leitura;
+
+Final
+criar algo mais melhor do usuário usar;
+criar diferentes jsons para testar diferentes coisas;
+renomear as classes para letra maiúscula
