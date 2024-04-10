@@ -1,19 +1,28 @@
+import { Utills } from './Utills';
+import { ApiError } from './ApiError';
 import axios from 'axios';
 
 export class Conection {
     #full_url: string;
 
-    constructor(base_code: string, target_code: string, value_to_convert: number) {
-        this.#full_url = `https://v6.exchangerate-api.com/v6/eba9787862c58900337308c2/pair/${base_code}/${target_code}/${value_to_convert}`;
+    constructor(baseCode: string, targetCode: string, valueToConvert: string) {
+        Utills.equals(baseCode, targetCode);
+        Utills.validaMoeda(baseCode);
+        Utills.validaMoeda(targetCode);
+        Utills.validarValor(valueToConvert)
+
+        this.#full_url = `https://v6.exchangerate-api.com/v6/eba9787862c58900337308c2/pair/${baseCode}/${targetCode}/${valueToConvert}`;
     }
 
-    // Função para fazer a requisição e manipular a resposta JSON
+    get full_url(): string {
+        return this.#full_url;
+    }
+
     async buscaDados(): Promise<{ base_code: string, target_code: string, conversion_rate: number, conversion_result: number }> {
-        try {
             const response = await axios.get(this.#full_url);
             const data = response.data;
 
-            if (data && data.result) {
+            if (data.result === "success") {
                 return {
                     base_code: data.base_code,
                     target_code: data.target_code,
@@ -21,11 +30,13 @@ export class Conection {
                     conversion_result: data.conversion_result
                 };
             } else {
-                throw new Error('Resposta da API não contém campo "result"');
+                throw ApiError.handleApiError(data["error-type"]);
             }
-        } catch (error) {
-            console.error('Erro ao fazer requisição:', error);
-            throw error;
+        } catch (error: any) {
+            if (error instanceof ApiError) {
+                throw error;
+            } else {
+                throw new Error("Erro ao buscar dados da API.");
+            }
         }
     }
-}

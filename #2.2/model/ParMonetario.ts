@@ -1,3 +1,4 @@
+import { Utills } from '../controller/Utills';
 
 export class ParMonetario {
     #base_code: string;
@@ -30,6 +31,6 @@ export class ParMonetario {
 
     //vou remover esse tipo to string e ajustar no presenter 
     toString() {
-        return `${this.base_code}, Target: ${this.target_code}, Rate: ${this.conversion_rate}, Result: ${this.conversion_result}`;
+        return `\n_____________________________\n${this.base_code} => ${this.target_code} \nTaxa de conversão: ${this.conversion_rate.toFixed(6)} \nResultado: $ ${this.conversion_result.toFixed(2)}\n_____________________________\n`;
     }
 }

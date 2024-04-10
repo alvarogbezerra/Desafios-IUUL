@@ -1,7 +1,7 @@
-import { Presenter } from './presenter/Presenter';
+import { View } from './View/View';
 
 (function () {
-  const presenter = new Presenter();
+  const presenter = new View();
   presenter.run();
 })();
 
