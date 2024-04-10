@@ -2,7 +2,7 @@ import { Utills } from './Utills';
 import { ApiError } from './ApiError';
 import axios from 'axios';
 
-export class Conection {
+export class Connection {
     #full_url: string;
 
     constructor(baseCode: string, targetCode: string, valueToConvert: string) {
@@ -19,24 +19,17 @@ export class Conection {
     }
 
     async buscaDados(): Promise<{ base_code: string, target_code: string, conversion_rate: number, conversion_result: number }> {
-            const response = await axios.get(this.#full_url);
+            const response = await axios.get(this.#full_url).catch((data) => {
+                throw ApiError.handleApiError(data.response.data["error-type"]);
+            });
             const data = response.data;
 
-            if (data.result === "success") {
-                return {
-                    base_code: data.base_code,
-                    target_code: data.target_code,
-                    conversion_rate: data.conversion_rate,
-                    conversion_result: data.conversion_result
-                };
-            } else {
-                throw ApiError.handleApiError(data["error-type"]);
-            }
-        } catch (error: any) {
-            if (error instanceof ApiError) {
-                throw error;
-            } else {
-                throw new Error("Erro ao buscar dados da API.");
-            }
-        }
+            return {
+                base_code: data.base_code,
+                target_code: data.target_code,
+                conversion_rate: data.conversion_rate,
+                conversion_result: data.conversion_result
+            };
+
     }
+}

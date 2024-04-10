@@ -8,6 +8,21 @@ correspondente.
 Criar mensagens de erro personalizadas para o "unsupported-code";
 Testar com vário casos;
 
+    async buscaDados(): Promise<{ base_code: string, target_code: string, conversion_rate: number, conversion_result: number }> {
+            const response = await axios.get(this.#full_url).catch(() => {
+                throw ApiError.handleApiError(data["error-type"]);
+            });
+            const data = response.data;
+
+            return {
+                base_code: data.base_code,
+                target_code: data.target_code,
+                conversion_rate: data.conversion_rate,
+                conversion_result: data.conversion_result
+            };
+
+    }
+    
 {
   message: 'Request failed with status code 404',
   name: 'AxiosError',

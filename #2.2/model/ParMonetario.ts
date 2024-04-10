@@ -1,5 +1,3 @@
-import { Utills } from '../controller/Utills';
-
 export class ParMonetario {
     #base_code: string;
     #target_code: string;
