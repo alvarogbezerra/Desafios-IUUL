@@ -1,0 +1,85 @@
+UC01 – Cadastrar Ciclista
+        Microsserviço Aluguel
+        	[FRONT] GET /ciclista/existeEmail/{email} 
+		[BACK]  POST /ciclista [RF1]
+        Microsserviço Externo
+                [BACK]  POST /validaCartaoDeCredito 
+                [BACK]  POST /enviarEmail
+UC02 – Confirmar email
+	Microsserviço Aluguel
+        	[BACK] 	POST /ciclista/{idCiclista}/ativar [RF2]
+UC03 - Alugar bicicleta
+	Microsserviço Equipamento
+		[FRONT] GET /tranca/{idTranca}
+		[FRONT] GET /tranca/{idTranca}/bicicleta
+        Microsserviço Aluguel
+                [BACK]  GET /ciclista/{idCiclista}/permiteAluguel [RF3][RF12]
+        Microsserviço Externo
+		[BACK]  POST /cobranca [RF6]
+	Microsserviço Equipamento
+		[BACK]  POST /bicicleta/{idBicicleta}/status/{acao}
+		[BACK]  POST /tranca/{idTranca}/status/{acao} [RF7]
+        Microsserviço Externo
+		[BACK]  POST /enviarEmail [RF13]
+UC04 - Devolver bicicleta
+	Microsserviço Equipamento
+		[FRONT] GET /bicicleta/{idBicicleta}
+        Microsserviço Externo
+                [BACK]  POST /cobranca [RF8]
+	Microsserviço Equipamento
+                [BACK]  POST /bicicleta/{idBicicleta}/status/{acao} [RF4]
+                [BACK]  POST /tranca/{idTranca}/trancar [RF5][RF9]
+        Microsserviço Externo
+		[BACK]  POST /enviarEmail [RF13][RF14]
+UC06 - Alterar dados do ciclista
+	Microsserviço Equipamento
+                [BACK]  GET /ciclista/{idCiclista}
+                [BACK]  PUT /ciclista/{idCiclista} [RF11]
+        Microsserviço Externo
+		[BACK]  POST /enviarEmail
+UC07 - Alterar cartão
+        Microsserviço Externo
+                [BACK]  POST /validaCartaoDeCredito  [RF11]
+		[BACK]  POST /enviarEmail 
+UC08 - Incluir bicicleta na rede de totens
+	Microsserviço Equipamento
+		[FRONT] GET /bicicleta/{idBicicleta}
+		[BACK]  POST /bicicleta/{idBicicleta}
+		[BACK]  POST /tranca/{idTranca}/trancar [RF17]
+		[BACK]  POST /bicicleta/{idBicicleta}/status/{acao}
+UC09 - Retirar bicicleta do sistema de totens para reparo
+	Microsserviço Equipamento
+		[FRONT] GET /tranca/{idTranca}/bicicleta
+		[BACK]  POST /tranca/{idTranca}/destrancar [RF18]
+		[BACK]  POST /bicicleta/{idBicicleta}/status/{acao}
+UC10 - Manter cadastro de bicicletas
+	Microsserviço Equipamento
+		[FRONT] GET /bicicleta
+		[BACK]  POST /bicicleta
+		[BACK]  POST /bicicleta/integrarNaRede
+		[FRONT] GET /bicicleta [RF16]
+UC11 -  Incluir Tranca em Totem (revisar)
+	Microsserviço Equipamento
+		[BACK]  POST /tranca
+		[BACK]  POST /tranca/integrarNaRede [RF20]
+		[BACK]  POST /tranca/{idTranca}/status/{acao}
+UC12 - Retirar tranca do sistema de totens reparo
+	Microsserviço Equipamento
+		[FRONT] GET /tranca/{idTranca}
+		[BACK] PUT /tranca/{idTranca} [RF21]
+UC13 -  Manter cadastro de trancas
+	Microsserviço Equipamento
+		[FRONT] GET /tranca
+		[BACK]  POST /tranca [RF19]
+UC14 -  Manter cadastro de totens
+	Microsserviço Equipamento
+		[FRONT] GET /totem
+		[BACK]  POST /totem [RF22]
+UC15 - Manter cadastro de funcionários
+        Microsserviço Aluguel
+		[FRONT] GET /funcionario
+		[BACK]  POST /funcionario [RF23]
+UC16 - Cobrar taxas atrasadas
+        Microsserviço Externo
+		[BACK]  POST /processaCobrancasEmFila
+		[BACK]  POST /filaCobranca [RF10]
